@@ -1,9 +1,11 @@
 package com.projetoBackEnd.Utils;
 
 
-import java.util.List;
 
-import org.springframework.context.annotation.Bean;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.projetoBackEnd.Controller.Request.PostagemRequest;
@@ -20,32 +22,35 @@ import lombok.Data;
 @Data
 public class PostagemBuilder {
 
-	@Bean
-	public PostagemRequest postagemRequest() {
-	    return new PostagemRequest();
+
+	@Autowired
+	UsuarioBuilder usuarioBuilder;
+
+		
+	public List<PostagemResponse> buildPostagemResponse(List<Postagem> postagem) {
+
+		return postagem.stream().map(postagens -> buildPostagemResponse(postagens)).collect(Collectors.toList());
+
 	}
-	
-  private PostagemRequest postagemRequest;
-  private PostagemResponse postagemResponse;
 
-  public Postagem buildPostagem(PostagemRequest postagemRequest ,Usuario autor) {
-    return Postagem.builder()
-      .titulo(postagemRequest.getTitulo())
-      .texto(postagemRequest.getTexto())
-      .autor(autor)
-      .build();
-  }
+	public PostagemResponse buildPostagemResponse(Postagem postagem) {
 
-  public PostagemResponse buildPostagemResponse(Postagem postagem) {
-    return PostagemResponse.builder()
-      .id(postagem.getId())
-      .titulo(postagem.getTitulo())
-      .texto(postagem.getTexto())
-      .build();
-  }
-  
-  public List<PostagemResponse> buildPostagemResponse(List<Postagem> postagem){
-	  return (List<PostagemResponse>) postagem.stream().map(postagens -> buildPostagemResponse(postagens)).toList();
-  }
+		return PostagemResponse.builder()
+				.id(postagem.getId())
+				.titulo(postagem.getTitulo())
+				.texto(postagem.getTexto())
+				.autor(usuarioBuilder.usuarioResponseBuild(postagem.getAutor()))
+				.build();
+	}
+
+	public Postagem buildPostagem(PostagemRequest postagemRequest, Usuario autor) {
+
+		return 	Postagem.builder()
+						.titulo(postagemRequest.getTitulo())
+						.texto(postagemRequest.getTexto())
+						.autor(autor)
+						.build();
+
+	}
 
 }

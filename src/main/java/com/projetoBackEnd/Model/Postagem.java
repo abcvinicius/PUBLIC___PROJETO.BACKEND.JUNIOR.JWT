@@ -37,7 +37,7 @@ public class Postagem {
 	private String texto;
 	
 	@ManyToOne	    
-	@JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
+	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
 	private Usuario autor;
 
 

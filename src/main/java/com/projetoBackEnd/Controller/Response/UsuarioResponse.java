@@ -21,6 +21,6 @@ public class UsuarioResponse {
 		
 		private String senha;
 		
-		private List<PostagemResponse> postagens;
+		private List<PostagemResponse> postagem;
 
 }

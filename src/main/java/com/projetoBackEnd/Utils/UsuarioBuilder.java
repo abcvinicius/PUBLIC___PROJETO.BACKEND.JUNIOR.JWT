@@ -1,23 +1,84 @@
 package com.projetoBackEnd.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
 import com.projetoBackEnd.Controller.Request.UsuarioRequest;
-import com.projetoBackEnd.Controller.Response.PostagemResponse;
 import com.projetoBackEnd.Controller.Response.UsuarioResponse;
 import com.projetoBackEnd.Model.Usuario;
 
-
-
 @Component
 public class UsuarioBuilder {
+	
+	public List<UsuarioResponse> usuarioResponseBuild(List<Usuario> usuario){
+		return usuario.stream().map(usuarios -> usuarioResponseBuild(usuarios)).collect(Collectors.toList());
+	}
+	
 
+	public UsuarioResponse usuarioResponseBuild(Usuario usuario) {
+		return 	UsuarioResponse.builder()
+							   .id(usuario.getId())
+							   .nome(usuario.getNome())
+							   .email(usuario.getEmail())
+							   .senha(usuario.getSenha())
+							   .build();
+	}
+	
+	public Usuario usuarioBuild(UsuarioRequest usuarioRequest) {
+		return Usuario.builder()
+				.nome(usuarioRequest.getNome())
+				.email(usuarioRequest.getEmail())
+				.senha(usuarioRequest.getSenha())
+				.build();
+	}
+	
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+/*
 
-
+* CODIGO ANTIGO
 	//List
 	public List<UsuarioResponse> buildUsuarioResponse(List<Usuario> usuario){
 		return usuario.stream().map(usuarios -> buildUsuarioResponse(usuarios)).collect(Collectors.toList());
@@ -35,7 +96,6 @@ public class UsuarioBuilder {
                 	.build())
             		.collect(Collectors.toList());
         }
-    	
         return UsuarioResponse.builder()
                 .id(usuario.getId())
                 .nome(usuario.getNome())
@@ -54,4 +114,4 @@ public class UsuarioBuilder {
             .build();
     }
 }
-
+*/

@@ -1,9 +1,11 @@
 package com.projetoBackEnd.Controller.Request;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 
 @Data
 @Builder
@@ -15,5 +17,6 @@ public class PostagemRequest {
 	
 	private String texto;
 
-	private UsuarioRequest autor;
+	private UsuarioRequestId autor;
+	
 }

@@ -1,7 +1,6 @@
 package com.projetoBackEnd.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.projetoBackEnd.Controller.Request.PostagemRequest;
@@ -16,40 +15,66 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Component
 public class PostagemService {
 
-    @Autowired
-    private PostagemRepository postagemRepository;
+	@Autowired
+	PostagemBuilder postagemBuilder;
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+	@Autowired
+	PostagemRepository postagemRepository;
 
-    @Autowired
-    private PostagemBuilder postagemBuilder;
+	@Autowired
+	UsuarioRepository usuarioRepository;
 
-    public PostagemResponse criarPostagem(PostagemRequest postagemRequest, Long autorId) {
-        Optional<Usuario> autor = usuarioRepository.findById(autorId);
-        if (!autor.isPresent()) {
-            throw new RuntimeException("Autor não encontrado");
-        }
+	public PostagemResponse salvar(PostagemRequest postagemRequest) throws Exception {
+		Optional<Usuario> usuarioOptional = usuarioRepository.findById(postagemRequest.getAutor().getId());
+		if (usuarioOptional.isPresent()) {
+			return postagemBuilder.buildPostagemResponse(
+					postagemRepository.save(postagemBuilder.buildPostagem(postagemRequest, usuarioOptional.get())));
+		}
+		throw new Exception("Autor não existente!");
+	}
 
-        Postagem postagem = postagemBuilder.buildPostagem(autor.get());
-        Postagem postagemSalva = postagemRepository.save(postagem);
-        return postagemBuilder.buildPostagemResponse(postagemSalva);
-    }
+	public List<PostagemResponse> buscar() {
+		return postagemBuilder.buildPostagemResponse(postagemRepository.findAll());
+	}
 
-    public List<PostagemResponse> buscarPostagens() {
-        List<Postagem> postagens = postagemRepository.findAll();
-        return postagemBuilder.buildPostagemResponse(postagens);
-    }
+	public PostagemResponse buscarPorId(Long id) throws Exception {
+		Optional<Postagem> postagemOptional = postagemRepository.findById(id);
+		if (postagemOptional.isPresent()) {
+			return postagemBuilder.buildPostagemResponse(postagemOptional.get());
+		}
+		throw new Exception("Postagem não encontrada!");
+	}
 
-    public PostagemResponse buscarPostagemPorId(Long id) {
-        Optional<Postagem> postagem = postagemRepository.findById(id);
-        if (!postagem.isPresent()) {
-            throw new RuntimeException("Postagem não encontrada");
-        }
-        return postagemBuilder.buildPostagemResponse(postagem.get());
-    }
+	public String deletar(Long id) throws Exception {
+		Optional<Postagem> postagemOptional = postagemRepository.findById(id);
+		if (postagemOptional.isPresent()) {
+			postagemRepository.deleteById(id);
+			return "Postagem deletada com sucesso.";
+		}
+		throw new Exception("Postagem não encontrada!");
+	}
 
+	public PostagemResponse atualizar(PostagemResponse postagemResponse) throws Exception {
+		Optional<Postagem> postagemOptional = postagemRepository.findById(postagemResponse.getId());
+		if (postagemOptional.isPresent()) {
+			Postagem postagem = postagemOptional.get();
+			postagem.setTitulo(postagemResponse.getTitulo());
+			postagem.setTexto(postagemResponse.getTexto());
+			return postagemBuilder.buildPostagemResponse(postagemRepository.save(postagem));
+		}
+		throw new Exception("Postagem não encontrada!");
+	}
+
+	/*
+	 * public PostagemResponse atualizar(PostagemRequest postagemRequest) throws
+	 * Exception { Optional<Postagem> postagemOptional =
+	 * postagemRepository.findById(postagemRequest.getAutor().getId()); if
+	 * (postagemOptional.isPresent()) { Postagem postagem = postagemOptional.get();
+	 * postagem.setTitulo(postagemRequest.getTitulo());
+	 * postagem.setTexto(postagemRequest.getTexto()); return
+	 * postagemBuilder.buildPostagemResponse(postagemRepository.save(postagem)); }
+	 * throw new Exception("Postagem não encontrada!"); }
+	 */
 }
