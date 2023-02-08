@@ -1,6 +1,6 @@
 package com.projetoBackEnd.config;
 
-import com.projetoBackEnd.Model.Usuario;
+import com.projetoBackEnd.Controller.Request.UsuarioRequest;
 import com.projetoBackEnd.Repository.UsuarioRepository;
 import java.io.IOException;
 import java.util.Optional;
@@ -37,7 +37,7 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
 
 	private void autenticarCliente(String token) {
 		Long idUsuario = tokenService.getIdUsuario(token);
-		Optional<Usuario> optionalUsuario = repository.findById(idUsuario);
+		Optional<UsuarioRequest> optionalUsuario = repository.findById(idUsuario);
 		if(optionalUsuario.isPresent()) {
 			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(optionalUsuario.get(), null, null);
 			SecurityContextHolder.getContext().setAuthentication(authentication);

@@ -1,7 +1,16 @@
 package com.projetoBackEnd.Model;
 
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+
+import com.projetoBackEnd.Controller.Request.UsuarioRequest;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,7 +39,7 @@ public class Postagem {
 	
 	@ManyToOne	    
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
-	private Usuario autor;
+	private UsuarioRequest autor;
 
 
 }

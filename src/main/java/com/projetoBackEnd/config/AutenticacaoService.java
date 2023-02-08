@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.projetoBackEnd.Model.Usuario;
+import com.projetoBackEnd.Controller.Request.UsuarioRequest;
 import com.projetoBackEnd.Repository.UsuarioRepository;
 
 @Service
@@ -19,10 +19,9 @@ public class AutenticacaoService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<Usuario> usuario = repository.findByEmail(username);
 		
-		repository.findAll();
-		
+		Optional<UsuarioRequest> usuario = repository.findByEmail(username);
+			
 		if (usuario.isPresent()) {
 			return usuario.get();
 		}

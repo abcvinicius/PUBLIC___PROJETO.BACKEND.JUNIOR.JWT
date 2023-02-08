@@ -26,9 +26,10 @@ public class AuthController {
 	private TokenService tokenService;
 
 	@PostMapping
-	public ResponseEntity<TokenResponse> autenticar(@RequestBody @Validated UsuarioRequest UsuarioRequest)
+	public ResponseEntity<TokenResponse> autenticar(@RequestBody @Validated LoginFormDTO loginForm)
 			throws Exception {
-		UsernamePasswordAuthenticationToken dadosLogin = UsuarioRequest.converter();
+		
+		UsernamePasswordAuthenticationToken dadosLogin = loginForm.convert();
 
 		try {
 			

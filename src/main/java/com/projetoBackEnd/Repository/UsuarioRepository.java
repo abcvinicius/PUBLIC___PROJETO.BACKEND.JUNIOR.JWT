@@ -3,12 +3,11 @@ package com.projetoBackEnd.Repository;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.projetoBackEnd.Model.Usuario;
 
-public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
+import com.projetoBackEnd.Controller.Request.UsuarioRequest;
 
-	Optional<Usuario> findByUsername(String username);
-
-	Optional<Usuario> findByEmail(String username);
+public interface UsuarioRepository extends JpaRepository<UsuarioRequest, Long>{
+	
+	Optional<UsuarioRequest> findByEmail(String username);
 
 }
