@@ -17,6 +17,8 @@ public class UsuarioResponse {
 		
 		private String nome;
 		
+		private String username;
+		
 		private String email;
 		
 		private String senha;

@@ -34,11 +34,5 @@ public class UsuarioController {
 		UsuarioResponse usuario = usuarioService.salvar(usuarioRequest);
 		URI uri = uriBuilder.path("/usuario/{id}").buildAndExpand(usuario.getId()).toUri();
 		return ResponseEntity.created(uri).body(usuario);
-	}
-
-	@GetMapping("/getUsuario")
-	public List<UsuarioResponse> listar() {
-		return usuarioService.buscar();
-	}
-	
+	}	
 }

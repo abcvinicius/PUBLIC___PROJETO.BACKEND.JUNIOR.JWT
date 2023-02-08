@@ -3,6 +3,7 @@ package com.projetoBackEnd.Utils;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.projetoBackEnd.Controller.Request.UsuarioRequest;
@@ -21,16 +22,16 @@ public class UsuarioBuilder {
 		return 	UsuarioResponse.builder()
 							   .id(usuario.getId())
 							   .nome(usuario.getNome())
+							   .username(usuario.getUsername())
 							   .email(usuario.getEmail())
 							   .senha(usuario.getSenha())
 							   .build();
 	}
 	
 	public Usuario usuarioBuild(UsuarioRequest usuarioRequest) {
-		return Usuario.builder()
-				.nome(usuarioRequest.getNome())
+		return Usuario.builder()				
 				.email(usuarioRequest.getEmail())
-				.senha(usuarioRequest.getSenha())
+				.senha((usuarioRequest.getSenha()))
 				.build();
 	}
 	
