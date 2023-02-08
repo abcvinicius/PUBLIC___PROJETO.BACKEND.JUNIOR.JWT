@@ -5,6 +5,7 @@ package com.projetoBackEnd.Controller.EndPoints;
 import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,10 +28,10 @@ public class UsuarioController {
 	UsuarioService usuarioService;
 
 	@PostMapping("/register")
-	public ResponseEntity<UsuarioRequest> cadastro(@RequestBody @Validated UsuarioRequest usuarioRequest,
+	public ResponseEntity<UsuarioDTO> cadastro(@RequestBody @Validated UsuarioRequest usuarioRequest,
 			UriComponentsBuilder uriBuilder) throws Exception {
-		UsuarioRequest usuario = usuarioService.salvar(usuarioRequest);
-		URI uri = uriBuilder.path("/usuario/{id}").buildAndExpand(usuario.getId()).toUri();
-		return ResponseEntity.created(uri).body(usuario);
+		UsuarioDTO usuario = usuarioService.salvar(usuarioRequest);
+		//URI uri = uriBuilder.path("/usuario/{id}").buildAndExpand(usuario.getId()).toUri();
+		return  new ResponseEntity<UsuarioDTO>(usuario,HttpStatus.CREATED);
 	}	
 }

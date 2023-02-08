@@ -24,6 +24,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UsuarioRequest implements UserDetails{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
