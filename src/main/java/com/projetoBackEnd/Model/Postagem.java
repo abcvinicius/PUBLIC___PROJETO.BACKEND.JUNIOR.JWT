@@ -9,8 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
-import com.projetoBackEnd.Controller.Request.UsuarioRequest;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,8 +24,8 @@ import lombok.ToString;
 public class Postagem {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "postagem_seq")
-	@SequenceGenerator(name = "postagem_seq", sequenceName = "postagem_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_seq")
+	@SequenceGenerator(name = "usuario_seq", sequenceName = "usuario_seq", allocationSize = 1)
 	@EqualsAndHashCode.Include
 	private Long id;
 
@@ -37,7 +35,7 @@ public class Postagem {
 	
 	@ManyToOne	    
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
-	private UsuarioRequest autor;
+	private Usuario autor;
 
 
 }

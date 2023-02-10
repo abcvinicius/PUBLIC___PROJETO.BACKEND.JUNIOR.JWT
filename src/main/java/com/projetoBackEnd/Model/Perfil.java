@@ -1,4 +1,4 @@
-package com.projetoBackEnd.Controller.Request;
+package com.projetoBackEnd.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

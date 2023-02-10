@@ -4,10 +4,12 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.projetoBackEnd.Controller.Request.UsuarioRequest;
+import com.projetoBackEnd.Model.Usuario;
 
-public interface UsuarioRepository extends JpaRepository<UsuarioRequest, Long>{
+public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 	
-	Optional<UsuarioRequest> findByEmail(String username);
+	Optional<Usuario> findByEmail(String username);
+
+	Usuario findByNome(String nome);
 
 }

@@ -1,4 +1,4 @@
-package com.projetoBackEnd.Controller.Request;
+package com.projetoBackEnd.Model;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,21 +15,19 @@ import javax.persistence.OneToMany;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.projetoBackEnd.Model.Postagem;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @NoArgsConstructor
-public class UsuarioRequest implements UserDetails {
+public class Usuario implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private Long id;
 
 	private String nome;
 

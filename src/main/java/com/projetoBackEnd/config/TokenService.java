@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import com.projetoBackEnd.Controller.Request.UsuarioRequest;
+import com.projetoBackEnd.Model.Usuario;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -22,7 +22,7 @@ public class TokenService {
 	private String secret;
 
 	public TokenTriangulador gerarToken(Authentication authentication) {
-		UsuarioRequest logado = (UsuarioRequest) authentication.getPrincipal();
+		Usuario logado = (Usuario) authentication.getPrincipal();
 		Date hoje = new Date();
 		Date dataExpiracao = new Date(hoje.getTime() + Long.parseLong(expiration));
 		   
