@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projetoBackEnd.Controller.Request.UsuarioRequest;
 import com.projetoBackEnd.config.TokenService;
 import com.projetoBackEnd.config.TokenTriangulador;
 

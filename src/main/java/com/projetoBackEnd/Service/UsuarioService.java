@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.projetoBackEnd.Controller.EndPoints.UsuarioDTO;
 import com.projetoBackEnd.Controller.Request.UsuarioRequest;
-import com.projetoBackEnd.Controller.Response.UsuarioResponse;
 import com.projetoBackEnd.Repository.UsuarioRepository;
 
 

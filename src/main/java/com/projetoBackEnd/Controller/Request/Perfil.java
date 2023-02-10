@@ -13,10 +13,6 @@ import lombok.Data;
 @Data
 public class Perfil implements GrantedAuthority {
 
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Id

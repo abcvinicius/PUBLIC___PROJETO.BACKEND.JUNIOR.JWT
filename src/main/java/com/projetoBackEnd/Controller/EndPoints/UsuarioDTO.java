@@ -8,7 +8,7 @@ import com.projetoBackEnd.Controller.Request.UsuarioRequest;
 public class UsuarioDTO {
 	
 	
-	private String usuario;	
+	private String nome;	
 
 	private String password;	
 	
@@ -23,11 +23,11 @@ public class UsuarioDTO {
 	}
 
 	public UsuarioDTO(UsuarioRequest user) {
-		this.usuario = user.getUsuario();
+		this.nome = user.getNome();
 	}
 
 	public String getUsuario() {
-		return usuario;
+		return nome;
 	}
 
 
@@ -38,7 +38,7 @@ public class UsuarioDTO {
 
 	public static UsuarioDTO convertEmDTO(UsuarioRequest user) {
 		// TODO Auto-generated method stub
-		return new UsuarioDTO(user.getUsuario(),user.getPassword(),user.getEmail());
+		return new UsuarioDTO(user.getNome(),user.getPassword(),user.getEmail());
 	}
 
 	public static List<UsuarioDTO> convertEmListDTO(List<UsuarioRequest> findAll) {
@@ -52,8 +52,8 @@ public class UsuarioDTO {
 		
 	}
 
-	public UsuarioDTO(String usuario, String password, String email) {
-		this.usuario = usuario;
+	public UsuarioDTO(String nome, String password, String email) {
+		this.nome = nome;
 		this.password = password;
 		this.email = email;
 	}

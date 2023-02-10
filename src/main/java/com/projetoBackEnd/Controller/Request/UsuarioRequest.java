@@ -1,6 +1,5 @@
 package com.projetoBackEnd.Controller.Request;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -11,10 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.projetoBackEnd.Model.Postagem;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,69 +23,86 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
-public class UsuarioRequest implements UserDetails{
-	
-	/**
-	 * 
-	 */
+public class UsuarioRequest implements UserDetails {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-		
-		private String usuario;
+
+	private String nome;
+
+	private String email;
+
+	private String senha;
+
 	
-		private String email;
+	
+	
+/*-----------------------------------------------------------*/
 
-		private String senha;
-		
-		//JÁ CARREGA O PERFIL ASSIM QUE CARREGAR O USUARIO
-		@ManyToMany(fetch = FetchType.EAGER)
-		private List<Perfil> perfils = new ArrayList<Perfil>();
-		
-		@Override
-		public Collection<? extends GrantedAuthority> getAuthorities() {
-			// TODO Auto-generated method stub
-			return this.perfils;
-		}
+	//Carrega o Perfil na mesmo hora que Carrega Usuario
+	@ManyToMany(fetch = FetchType.EAGER)
+	private List<Perfil> perfils = new ArrayList<Perfil>();
 
-		@Override
-		public String getUsername() {
-			// TODO Auto-generated method stub
-			return this.usuario;
-		}
+	
+	@OneToMany(mappedBy = "autor")
+	private List<Postagem> postagens;
 
-		@Override
-		public boolean isAccountNonExpired() {
-			// TODO Auto-generated method stub
-			return true;
-		}
+	
+	
+	
 
-		@Override
-		public boolean isAccountNonLocked() {
-			// TODO Auto-generated method stub
-			return true;
-		}
+	
+/*-----------------------------------------------------------*/
+	
+	
 
-		@Override
-		public boolean isCredentialsNonExpired() {
-			// TODO Auto-generated method stub
-			return true;
-		}
+	
+	
+	
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return this.perfils;
+	}
 
-		@Override
-		public boolean isEnabled() {
-			// TODO Auto-generated method stub
-			return true;
-		}
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.nome;
+	}
 
-		@Override
-		public String getPassword() {
-			// TODO Auto-generated method stub
-			return this.senha;
-		}
-		
-		
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return this.senha;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 
 }
