@@ -1,4 +1,4 @@
-package com.projetoBackEnd.dto;
+package com.projetoBackEnd.dto.usuarioDTO;
 
 
 

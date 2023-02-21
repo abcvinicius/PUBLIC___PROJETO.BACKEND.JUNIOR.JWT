@@ -18,8 +18,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.projetoBackEnd.Model.Usuario;
 import com.projetoBackEnd.Service.UsuarioService;
-import com.projetoBackEnd.dto.UsuarioCompletoDTO;
-import com.projetoBackEnd.dto.UsuarioDTO;
+import com.projetoBackEnd.dto.usuarioDTO.UsuarioCompletoDTO;
+import com.projetoBackEnd.dto.usuarioDTO.UsuarioDTO;
 
 
 

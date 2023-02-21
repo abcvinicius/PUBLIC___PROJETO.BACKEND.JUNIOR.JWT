@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.projetoBackEnd.Model.Usuario;
 import com.projetoBackEnd.Repository.UsuarioRepository;
-import com.projetoBackEnd.dto.UsuarioCompletoDTO;
-import com.projetoBackEnd.dto.UsuarioDTO;
-import com.projetoBackEnd.dto.UsuarioIdDTO;
+import com.projetoBackEnd.dto.usuarioDTO.UsuarioCompletoDTO;
+import com.projetoBackEnd.dto.usuarioDTO.UsuarioDTO;
+import com.projetoBackEnd.dto.usuarioDTO.UsuarioIdDTO;
 
 
 @Service

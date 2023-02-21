@@ -1,4 +1,4 @@
-package com.projetoBackEnd.dto;
+package com.projetoBackEnd.dto.usuarioDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,7 +43,9 @@ public class UsuarioDTO {
 	
 /* ------------------------------- */	
 	public UsuarioDTO(Usuario user) {
-		this.nome = user.getNome();
+	    this.nome = user.getNome();
+	    this.email = user.getEmail();
+	    this.password = user.getPassword();
 	}
 /* ------------------------------- */
 
@@ -61,6 +63,7 @@ public class UsuarioDTO {
 		this.email = email;
 		this.password = password;
 	}
+	
 	
 	
 	
