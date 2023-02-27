@@ -1,4 +1,4 @@
-package com.projetoBackEnd.config;
+	package com.projetoBackEnd.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -42,11 +42,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and().authorizeRequests()
-		    .antMatchers("/login*").permitAll()
-		    .antMatchers("/register*").permitAll()
-			.anyRequest().authenticated().and()
-			.csrf().disable()
+			http.authorizeRequests()
+		    .antMatchers("/login").permitAll()
+		    .antMatchers("/register").permitAll()
+		    .antMatchers("/getUsuario").permitAll()
+		    .anyRequest().authenticated()	
+		    .and().csrf().disable()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository),
 						UsernamePasswordAuthenticationFilter.class);

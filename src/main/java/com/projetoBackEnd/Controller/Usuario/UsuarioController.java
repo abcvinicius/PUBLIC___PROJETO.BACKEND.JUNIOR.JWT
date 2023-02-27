@@ -1,11 +1,12 @@
-package com.projetoBackEnd.Controller.EndPoints;
+package com.projetoBackEnd.Controller.Usuario;
 
 
 
-import java.net.URI;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.projetoBackEnd.Controller.Request.UsuarioRequest;
-import com.projetoBackEnd.Controller.Response.UsuarioResponse;
+import com.projetoBackEnd.Model.Usuario;
 import com.projetoBackEnd.Service.UsuarioService;
+import com.projetoBackEnd.dto.usuarioDTO.UsuarioCompletoDTO;
+import com.projetoBackEnd.dto.usuarioDTO.UsuarioDTO;
 
 
 
@@ -29,10 +31,16 @@ public class UsuarioController {
 	UsuarioService usuarioService;
 
 	@PostMapping("/register")
-	public ResponseEntity<UsuarioResponse> cadastro(@RequestBody @Validated UsuarioRequest usuarioRequest,
+	public ResponseEntity<UsuarioDTO> cadastro(@RequestBody @Validated Usuario usuarioRequest,
 			UriComponentsBuilder uriBuilder) throws Exception {
-		UsuarioResponse usuario = usuarioService.salvar(usuarioRequest);
-		URI uri = uriBuilder.path("/usuario/{id}").buildAndExpand(usuario.getId()).toUri();
-		return ResponseEntity.created(uri).body(usuario);
+		UsuarioDTO usuario = usuarioService.salvar(usuarioRequest);
+		return  new ResponseEntity<UsuarioDTO>(usuario,HttpStatus.CREATED);
 	}	
+	
+	//controller
+	@GetMapping("/getUsuarios")
+	public ResponseEntity<List<UsuarioCompletoDTO>> getTodosUsuarios() {
+	    List<UsuarioCompletoDTO> listaUsuarios = usuarioService.getTodosUsuarios();
+	    return ResponseEntity.ok().body(listaUsuarios);
+	}
 }

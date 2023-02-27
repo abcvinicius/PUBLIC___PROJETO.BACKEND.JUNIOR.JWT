@@ -1,50 +1,76 @@
 package com.projetoBackEnd.Model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString
 @Entity
+@NoArgsConstructor
 public class Usuario implements UserDetails {
-	
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_seq")
-	@SequenceGenerator(name = "usuario_seq", sequenceName = "usuario_seq", allocationSize = 1)
-	@EqualsAndHashCode.Include
-	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	private String nome;
 
-	private String username;
-	
 	private String email;
 
 	private String senha;
+
+	
+	
+	
+/*-----------------------------------------------------------*/
+
+	//Carrega o Perfil na mesmo hora que Carrega Usuario
+	@ManyToMany(fetch = FetchType.EAGER)
+	private List<Perfil> perfils = new ArrayList<Perfil>();
+
 	
 	@OneToMany(mappedBy = "autor")
 	private List<Postagem> postagens;
 
+	
+	
+	
+
+	
+/*-----------------------------------------------------------*/
+	
+	
+
+	
+	
+	
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.perfils;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.nome;
 	}
 
 	@Override
@@ -54,33 +80,27 @@ public class Usuario implements UserDetails {
 	}
 
 	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return username;
-	}
-
-	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }

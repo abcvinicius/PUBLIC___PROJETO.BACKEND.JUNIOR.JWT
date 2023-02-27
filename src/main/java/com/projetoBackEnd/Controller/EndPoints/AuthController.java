@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projetoBackEnd.Controller.Request.UsuarioRequest;
 import com.projetoBackEnd.config.TokenService;
 import com.projetoBackEnd.config.TokenTriangulador;
+import com.projetoBackEnd.dto.LoginFormDTO;
 
 @RestController
 @RequestMapping("/login")
@@ -26,9 +26,10 @@ public class AuthController {
 	private TokenService tokenService;
 
 	@PostMapping
-	public ResponseEntity<TokenResponse> autenticar(@RequestBody @Validated UsuarioRequest UsuarioRequest)
+	public ResponseEntity<TokenResponse> autenticar(@RequestBody @Validated LoginFormDTO loginForm)
 			throws Exception {
-		UsernamePasswordAuthenticationToken dadosLogin = UsuarioRequest.converter();
+		
+		UsernamePasswordAuthenticationToken dadosLogin = loginForm.convert();
 
 		try {
 			

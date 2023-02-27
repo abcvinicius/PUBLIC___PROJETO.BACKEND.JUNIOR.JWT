@@ -1,30 +1,46 @@
 package com.projetoBackEnd.Service;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.projetoBackEnd.Controller.Request.UsuarioRequest;
-import com.projetoBackEnd.Controller.Response.UsuarioResponse;
+import com.projetoBackEnd.Model.Usuario;
 import com.projetoBackEnd.Repository.UsuarioRepository;
-import com.projetoBackEnd.Utils.UsuarioBuilder;
+import com.projetoBackEnd.dto.usuarioDTO.UsuarioCompletoDTO;
+import com.projetoBackEnd.dto.usuarioDTO.UsuarioDTO;
+import com.projetoBackEnd.dto.usuarioDTO.UsuarioIdDTO;
+
 
 @Service
 public class UsuarioService {
 
-	@Autowired
-	UsuarioBuilder usuarioBuilder;
+
 	@Autowired
 	UsuarioRepository usuarioRepository;
 
-	public UsuarioResponse salvar(UsuarioRequest usuarioRequest) {
-		return usuarioBuilder.usuarioResponseBuild(usuarioRepository.save(usuarioBuilder.usuarioBuild(usuarioRequest)));
+	public UsuarioDTO salvar(Usuario usuario) {
+		BCryptPasswordEncoder crypt = new BCryptPasswordEncoder();
+		usuario.setSenha(crypt.encode(usuario.getSenha()));
+		Usuario user =  usuarioRepository.save(usuario);
+		 
+		 return UsuarioDTO.convertEmDTO(user);
 	}
 
-	public List<UsuarioResponse> buscar(){
-	return usuarioBuilder.usuarioResponseBuild(usuarioRepository.findAll());
 
+
+	public List<UsuarioCompletoDTO> getTodosUsuarios() {
+	    List<Usuario> usuarios = usuarioRepository.findAll();
+	    List<UsuarioCompletoDTO> usuariosCompletosDTO = new ArrayList<>();
+	    for (Usuario usuario : usuarios) {
+	        UsuarioIdDTO id = new UsuarioIdDTO(usuario.getId());
+	        UsuarioDTO usuarioDTO = new UsuarioDTO(usuario.getNome(), usuario.getEmail(), null);
+	        UsuarioCompletoDTO usuarioCompleto = new UsuarioCompletoDTO(id, usuarioDTO);
+	        usuariosCompletosDTO.add(usuarioCompleto);
+	    }
+	    return usuariosCompletosDTO;
 	}
-
 }
